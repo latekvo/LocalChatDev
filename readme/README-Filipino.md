@@ -148,12 +148,20 @@ eprint={2307.07924},
 archivePrefix={arXiv},
 primaryClass={cs.SE}
 }
+
+@misc{qian2023experiential,
+      title={Experiential Co-Learning of Software-Developing Agents}, 
+      author={Chen Qian and Yufan Dang and Jiahao Li and Wei Liu and Weize Chen and Cheng Yang and Zhiyuan Liu and Maosong Sun},
+      year={2023},
+      eprint={2312.17025},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
 ```
 
 ## ⚖️ Lisensya
 
 - Lisensya ng Source Code: Ang source code ng aming proyekto ay may lisensyang Apache 2.0. Ito ay nagbibigay ng pahintulot sa paggamit, pagbabago, at pamamahagi ng code, sa ilalim ng ilang kondisyon na inilahad sa Apache 2.0 License.
-- Estado ng Open-Source na Proyekto: Ang proyektong ito ay tunay na open-source; gayunpaman, ang designation na ito ay pangunahing para sa mga non-commercial na layunin. Habang inaanyayahan namin ang kolaborasyon at mga kontribusyon mula sa komunidad para sa pagsasaliksik at non-commercial na mga aplikasyon, mahalaga na tandaan na anumang paggamit ng mga bahagi ng proyekto para sa mga layunin ng negosyo ay nangangailangan ng mga hiwalay na kasunduang pang-lisensya.
 - Lisensya ng Data: Ang kaugnay na datos na ginamit sa aming proyekto ay may lisensyang CC BY-NC 4.0. Ang lisensyang ito ay malinaw na nagpapahintulot sa non-commercial na paggamit ng data. Nais naming bigyang-diin na ang anumang mga modelo na naitrain gamit ang mga datasets na ito ay dapat na mahigpit na sumusunod sa restriction ng non-commercial usage at dapat gamitin lamang para sa layuning pananaliksik.
 
 ## Kasaysayan ng Stars

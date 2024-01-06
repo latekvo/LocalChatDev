@@ -169,12 +169,20 @@ de ``CompanyConfig/Default``
       archivePrefix={arXiv},
       primaryClass={cs.SE}
 }
+
+@misc{qian2023experiential,
+      title={Experiential Co-Learning of Software-Developing Agents}, 
+      author={Chen Qian and Yufan Dang and Jiahao Li and Wei Liu and Weize Chen and Cheng Yang and Zhiyuan Liu and Maosong Sun},
+      year={2023},
+      eprint={2312.17025},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
 ```
 
 ## ⚖️ Licence
 
 - Licence du code source : Le code source de notre projet est sous licence Apache 2.0. Cette licence autorise l'utilisation, la modification et la distribution du code, sous réserve de certaines conditions définies dans la Licence Apache 2.0.
-- Statut Open-Source du Projet : Le projet est effectivement open-source ; cependant, cette désignation est principalement destinée à des fins non commerciales. Bien que nous encouragions la collaboration et les contributions de la communauté pour la recherche et les applications non commerciales, il est important de noter que toute utilisation des composants du projet à des fins commerciales nécessite des accords de licence séparés.
 - Licence des données : Les données associées utilisées dans notre projet sont sous licence CC BY-NC 4.0. Cette licence permet explicitement l'utilisation non commerciale des données. Nous souhaitons souligner que tout modèle formé à l'aide de ces ensembles de données doit strictement respecter la restriction d'utilisation non commerciale et ne doit être utilisé que pour des fins de recherche.
 
 ## Historique des Étoiles

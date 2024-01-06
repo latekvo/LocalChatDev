@@ -183,12 +183,20 @@ Dibuat dengan [contrib.rocks](https://contrib.rocks).
       archivePrefix={arXiv},
       primaryClass={cs.SE}
 }
+
+@misc{qian2023experiential,
+      title={Experiential Co-Learning of Software-Developing Agents}, 
+      author={Chen Qian and Yufan Dang and Jiahao Li and Wei Liu and Weize Chen and Cheng Yang and Zhiyuan Liu and Maosong Sun},
+      year={2023},
+      eprint={2312.17025},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
 ```
 
 ## ⚖️ Lisensi
 
 - Lisensi Kode Sumber: Kode sumber proyek kami dilisensikan di bawah Lisensi Apache 2.0. Lisensi ini mengizinkan penggunaan, modifikasi, dan distribusi kode, dengan syarat tertentu yang dijelaskan dalam Lisensi Apache 2.0.
-- Status Proyek Sumber Terbuka: Proyek ini memang bersifat sumber terbuka; namun, desainasi ini terutama ditujukan untuk tujuan non-komersial. Meskipun kami mendorong kolaborasi dan kontribusi dari komunitas untuk tujuan penelitian dan aplikasi non-komersial, penting untuk diingat bahwa penggunaan komponen proyek untuk tujuan komersial memerlukan perjanjian lisensi terpisah.
 - Lisensi Data: Data terkait yang digunakan dalam proyek kami dilisensikan di bawah CC BY-NC 4.0. Lisensi ini secara eksplisit mengizinkan penggunaan non-komersial data tersebut. Kami ingin menekankan bahwa model-model yang dilatih menggunakan dataset ini harus tunduk secara ketat pada pembatasan penggunaan non-komersial dan hanya boleh digunakan untuk tujuan penelitian.
 
 ## 🌟 Riwayat Bintang
