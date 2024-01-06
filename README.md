@@ -1,3 +1,51 @@
+# This is a modified fork of the official ChatDev repository
+We are aiming to make ChatDev run locally, or on a private network of devices.
+Hosting is done via ollama as it's cross-platform, single-command installable,
+and even after testing on multiple different devices, never threw a single error 
+contrary to other local model-hosting software such as h2o-ai which posed multiple
+challenges when we tried to use it.
+
+### Here is a general overview of what has to be changed in this repository in order to get everything up and working:
+* A separate program launching current machine as an AI host must be created.
+* All available host on the network have to declare their presence to the central control machine.
+* All mentions of `openai` in the CAMEL folder have to be replaced with a custom api interaction library.
+* Instead of just making requests to one website as is the case with `openai`'s api,
+we will have to manage a list of registered ai hosting machines, and adjust the url accordingly.
+* Additionally, we will have to fix chat history, 
+it is managed differently in ollama-hosted instances than it is in openai-hosted models
+
+### More details:
+* Requests to the ollama can be made via a simple http json request, here is an example request made via curl:
+  ```bash
+      curl --location 'http://localhost:11434/api/generate' \
+      --data '{
+          "model": "llama2-uncensored:7b",
+          "prompt": "what is the meaning of life?",
+          "system": "talk like a pirate",
+          "stream": false
+      }'
+  ```
+  And here is an example written in python:
+  ```python
+  import requests
+
+  url = 'http://localhost:11434/api/generate'
+    
+  params = dict(
+      model='llama2-uncensored:7b',
+      prompt='what is the meaning of life?',
+      system='talk like a pirate',
+      stream='false'
+  )
+    
+  resp = requests.get(url=url, params=params)
+  data = resp.json() # Check the JSON Response Content documentation below
+  ```
+  Note: the `"stream": false` parameter is very important and must be present in all requests.
+
+---
+## Original unmodified readme file:
+
 # Communicative Agents for Software Development
 
 <p align="center">
