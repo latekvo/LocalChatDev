@@ -17,6 +17,7 @@ from typing import Any, Dict
 import openai
 import tiktoken
 
+from camel import localai
 from camel.typing import ModelType
 from chatdev.statistics import prompt_cost
 from chatdev.utils import log_visualize
@@ -35,7 +36,14 @@ if 'BASE_URL' in os.environ:
     BASE_URL = os.environ['BASE_URL']
 else:
     BASE_URL = None
-
+if 'RUN_LOCALLY' in os.environ:
+    RUN_LOCALLY = os.environ['RUN_LOCALLY']
+else:
+    RUN_LOCALLY = 0
+if 'DECENTRALIZE' in os.environ:
+    DECENTRALIZE = os.environ['DECENTRALIZE']
+else:
+    DECENTRALIZE = 0
 
 class ModelBackend(ABC):
     r"""Base class for different model backends.
@@ -70,7 +78,47 @@ class OpenAIModel(ModelBackend):
         gap_between_send_receive = 15 * len(kwargs["messages"])
         num_prompt_tokens += gap_between_send_receive
 
-        if openai_new_api:
+        if RUN_LOCALLY:
+            # 3 possible cases
+            if DECENTRALIZE: # chooses the first agent from the queue
+                client = localai.LocalAI(
+                    base_url='http://localhost:11434/', # todo: choose from a list
+                )
+            elif BASE_URL: # only relies on a single server for the hosting
+                client = localai.LocalAI(
+                    base_url=BASE_URL,
+                )
+            else: # relies on itself for the hosting
+                client = localai.LocalAI()
+
+            # numbers in this map are more dependent on the host's hardware rather than the model itself
+            num_max_token_map = {
+                'llama2-uncensored:7b': 4096,
+            }
+
+            self.model_type.value = 'llama2-uncensored:7b'
+
+            num_max_token = num_max_token_map[self.model_type.value]
+            num_max_completion_tokens = num_max_token - num_prompt_tokens
+            self.model_config_dict['max_tokens'] = num_max_completion_tokens
+
+            response = client.chat.completions.create(*args, **kwargs, model=self.model_type.value,
+                                                      **self.model_config_dict)
+
+            cost = prompt_cost(
+                self.model_type.value,
+                num_prompt_tokens=response.usage.prompt_tokens,
+                num_completion_tokens=response.usage.completion_tokens
+            )
+
+            log_visualize(
+                "**[OpenAI_Usage_Info Receive]**\nprompt_tokens: {}\ncompletion_tokens: {}\ntotal_tokens: {}\ncost: ${:.6f}\n".format(
+                    response.usage.prompt_tokens, response.usage.completion_tokens,
+                    response.usage.total_tokens, cost))
+            if not isinstance(response, ChatCompletion):
+                raise RuntimeError("Unexpected return from ollama API")
+            return response
+        elif openai_new_api:
             # Experimental, add base_url
             if BASE_URL:
                 client = openai.OpenAI(
@@ -127,8 +175,7 @@ class OpenAIModel(ModelBackend):
             num_max_completion_tokens = num_max_token - num_prompt_tokens
             self.model_config_dict['max_tokens'] = num_max_completion_tokens
 
-            response = openai.ChatCompletion.create(*args, **kwargs, model=self.model_type.value,
-                                                    **self.model_config_dict)
+            response = openai.ChatCompletion.create(*args, **kwargs, model=self.model_type.value, **self.model_config_dict)
 
             cost = prompt_cost(
                 self.model_type.value,

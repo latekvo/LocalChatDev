@@ -39,7 +39,7 @@ it is managed differently in ollama-hosted instances than it is in openai-hosted
   )
     
   resp = requests.get(url=url, params=params)
-  data = resp.json() # Check the JSON Response Content documentation below
+  data = resp.json()
   ```
   Note: the `"stream": false` parameter is very important and must be present in all requests.
 
