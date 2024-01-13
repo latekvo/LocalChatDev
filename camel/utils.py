@@ -150,6 +150,8 @@ def openai_api_key_required(func: F) -> F:
             raise ValueError("Expected ChatAgent")
         if self.model == ModelType.STUB:
             return func(self, *args, **kwargs)
+        elif 'RUN_LOCALLY' in os.environ:
+            return func(self, *args, **kwargs)
         elif 'OPENAI_API_KEY' in os.environ:
             return func(self, *args, **kwargs)
         else:

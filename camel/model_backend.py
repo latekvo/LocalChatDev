@@ -17,7 +17,8 @@ from typing import Any, Dict
 import openai
 import tiktoken
 
-from camel import localai
+import camel.typing
+from camel.localai import LocalAI
 from camel.typing import ModelType
 from chatdev.statistics import prompt_cost
 from chatdev.utils import log_visualize
@@ -80,7 +81,7 @@ class OpenAIModel(ModelBackend):
         num_prompt_tokens += gap_between_send_receive
 
         if RUN_LOCALLY:
-            client = localai.LocalAI(
+            client = LocalAI(
                 base_url=BASE_URL,
                 decentralize=DECENTRALIZE,
             )
@@ -90,14 +91,21 @@ class OpenAIModel(ModelBackend):
                 'llama2-uncensored:7b': 4096,
             }
 
-            self.model_type.value = 'llama2-uncensored:7b'
+            # ERR: Could not automatically map llama2-uncensored:7b to a tokeniser.
+            #      Please use `tiktok.get_encoding` to explicitly get the tokeniser you expect
+            # We do not have to set this, it's just a tokenizing agent and estimates are enough.
+            # note: Enum entry was added, this did not fix the underlying issue
+            #self.model_type = ModelType('llama2-uncensored:7b')
 
-            num_max_token = num_max_token_map[self.model_type.value]
+            num_max_token = num_max_token_map['llama2-uncensored:7b']
             num_max_completion_tokens = num_max_token - num_prompt_tokens
             self.model_config_dict['max_tokens'] = num_max_completion_tokens
 
             response = client.chat.completions.create(*args, **kwargs, model=self.model_type.value,
                                                       **self.model_config_dict)
+
+            print('response received:')
+            print('response from LocalAI:', response)
 
             cost = prompt_cost(
                 self.model_type.value,

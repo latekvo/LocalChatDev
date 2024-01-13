@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2023 @ CAMEL-AI.org. All Rights Reserved. ===========
+import os
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
@@ -35,6 +36,9 @@ try:
     openai_new_api = True  # new openai api version
 except ImportError:
     openai_new_api = False  # old openai api version
+
+if 'RUN_LOCALLY' in os.environ:
+    openai_new_api = True  # using new_api when running LocalAI (ollama)
 
 
 @dataclass(frozen=True)

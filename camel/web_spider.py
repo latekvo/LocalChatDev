@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import openai
 import wikipediaapi
 import os
-import localai
+from camel.localai import LocalAI
 
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 BASE_URL = os.environ.get('BASE_URL')
@@ -22,7 +22,7 @@ else:
     OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
 if RUN_LOCALLY:
-    client = localai.LocalAI(
+    client = LocalAI(
         base_url=BASE_URL,  # may be None
         decentralize=DECENTRALIZE,
     )

@@ -51,6 +51,9 @@ class ModelType(Enum):
     GPT_4_TURBO = "gpt-4-1106-preview"
     GPT_4_TURBO_V = "gpt-4-1106-vision-preview"
 
+    # todo: Currently available models, i want to remove this restriction and allow any string to be used in the future.
+    LOCAL_LLAMA_2_UNCENSORED_7B = 'llama2-uncensored:7b'
+
     STUB = "stub"
 
     @property
