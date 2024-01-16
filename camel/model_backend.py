@@ -104,8 +104,7 @@ class OpenAIModel(ModelBackend):
             response = client.chat.completions.create(*args, **kwargs, model=self.model_type.value,
                                                       **self.model_config_dict)
 
-            print('response received:')
-            print('response from LocalAI:', response)
+            print('Response registered:', response)
 
             cost = prompt_cost(
                 self.model_type.value,
@@ -113,10 +112,28 @@ class OpenAIModel(ModelBackend):
                 num_completion_tokens=response.usage.completion_tokens
             )
 
+            print('Cost registered:', cost)
+
+            # by overriding instancecheck we make this class register as ChatCompletion
+            # this approach is risky and does not work well,
+            # will adjust every class check throughout the code instead
+            """
+            def fake_instancecheck(obj, classinfo):
+                if classinfo is ChatCompletion:
+                    return True
+                return False
+            response.__instancecheck__ = fake_instancecheck
+
+            print('Class overwritten:', isinstance(response, ChatCompletion))
+            """
+
+
             log_visualize(
                 "**[OpenAI_Usage_Info Receive]**\nprompt_tokens: {}\ncompletion_tokens: {}\ntotal_tokens: {}\ncost: ${:.6f}\n".format(
                     response.usage.prompt_tokens, response.usage.completion_tokens,
                     response.usage.total_tokens, cost))
+            # todo: response is not an instance of ChatCompletion, causing this error to trigger
+            #       ^ either remove any constraints, or perfectly imitate ChatCompletion and overwrite typename
             if not isinstance(response, ChatCompletion):
                 raise RuntimeError("Unexpected return from ollama API")
             return response
