@@ -31,15 +31,14 @@ it is managed differently in ollama-hosted instances than it is in openai-hosted
 
   url = 'http://localhost:11434/api/generate'
     
-  params = dict(
-      model='llama2-uncensored:7b',
-      prompt='what is the meaning of life?',
-      system='talk like a pirate',
-      stream='false'
-  )
+  request_data = {
+    'model': 'llama2-uncensored:7b',
+    'prompt': 'what is the meaning of life?',
+    'system': 'talk like a pirate',
+  }
     
-  resp = requests.get(url=url, params=params)
-  data = resp.json()
+  resp = requests.get(url=url, json=request_data, stream=False)
+  data = resp.content.split(b'\n') 
   ```
   Note: the `"stream": false` parameter is very important and must be present in all requests.
 
