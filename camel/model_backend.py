@@ -88,6 +88,7 @@ class OpenAIModel(ModelBackend):
 
             # numbers in this map are more dependent on the host's hardware rather than the model itself
             num_max_token_map = {
+                'openhermes': 4096,
                 'llama2-uncensored:7b': 4096,
             }
 
@@ -97,15 +98,12 @@ class OpenAIModel(ModelBackend):
             # note: Enum entry was added, this did not fix the underlying issue
             #self.model_type = ModelType('llama2-uncensored:7b')
 
-            num_max_token = num_max_token_map['llama2-uncensored:7b']
+            num_max_token = num_max_token_map['openhermes']
             num_max_completion_tokens = num_max_token - num_prompt_tokens
             self.model_config_dict['max_tokens'] = num_max_completion_tokens
 
             response = client.chat.completions.create(*args, **kwargs, model=self.model_type.value,
                                                       **self.model_config_dict)
-
-            print('confirming response generation')
-            print('^ response:', response)
 
             # note: removed cost calculation, completely unnecessary for locally run models
 

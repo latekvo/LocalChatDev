@@ -116,14 +116,14 @@ class LocalAI:
                 # all supplied kwargs: ['messages', 'model', 'temperature', 'top_p', 'n', 'stream', 'stop',
                 # 'max_tokens', 'presence_penalty', 'frequency_penalty', 'logit_bias', 'user']
 
-                request_url = self.parent.parent.base_url + 'api/generate'
+                request_url = self.parent.parent.base_url + 'api/generate'  # 'generate' can be used for one-turn chat only
                 # this broken formatting wraps the json inside the key of our html form,
                 # this is the only accepted formatting by ollama
                 # request_headers = {"Content-Type": "application/x-www-form-urlencoded"}
                 request_data = {
                     'model': self.parent.parent.model,
-                    'prompt': 'hello',
-                    'system': 'talk like a pirate',
+                    'prompt': 'hello'
+                    # 'messages': messages,
                 }
 
                 response = requests.post(url=request_url, json=request_data, stream=True)
@@ -137,10 +137,14 @@ class LocalAI:
                 repeat_counter = 0
                 repeat_token = ''
 
+                prompt_token_count = 0
+                response_token_count = 0
+
                 # convert response to json:
                 for chunk in response_stream:
-                    chunk_text = json.loads(chunk)['response']
-                    chunk_done = json.loads(chunk)['done']
+                    chunk_json = json.loads(chunk)
+                    chunk_text = chunk_json['response']
+                    chunk_done = chunk_json['done']
 
                     if chunk_text == repeat_token:
                         repeat_counter += 1
@@ -148,9 +152,13 @@ class LocalAI:
                         repeat_counter = 0
                         repeat_token = chunk_text
 
-                    # print('partial:', chunk_text)
-                    # we break early to avoid breaking the response_text string
-                    if chunk_done or repeat_counter > 5:
+                    if chunk_done:
+                        # final chunk contains special information
+                        prompt_token_count = chunk_json['prompt_eval_count']
+                        prompt_token_count = chunk_json['eval_count']
+                        response.close()
+                        break
+                    elif repeat_counter > 5:
                         response.close()
                         break
                     else:
@@ -158,12 +166,9 @@ class LocalAI:
 
                 response_text = ''.join(response_list)
 
-                print('done')
-                print('^ entirety:', response_text)
-
                 # token estimations, todo: make use of the llama tokenizer
-                input_cost = 0
-                output_cost = math.ceil(len(response_list) / 3)
+                input_cost = prompt_token_count
+                output_cost = response_token_count
                 total_cost = input_cost + output_cost
 
                 # replicate the entire returned object: https://platform.openai.com/docs/api-reference/chat/object
@@ -217,7 +222,18 @@ class LocalAI:
         else:
             self.base_url = 'http://localhost:11434/'
 
-        self.model = 'llama2-uncensored:7b'  # todo: move model selection to the worker-app
+        # tested 3 models in total:
+        """
+            openhermes: the best quality of responses so far, flawless python code, great implementation and tolerable speed.
+            dolphin-phi: tiny model which maintains great quality of responses, while being the fastest of all usable models i tried. It's responses are errorless but have trouble with indentation.
+            llama2-undensored:7b: a bit faster than hermes, comparable in quality to dolphin-phi, definietely the worst of the 3 mentioned, but also manages simpler tasks well
+            additional note for openhermes:
+                the quality of responses is really phenomenal, far surpassing ChatGPT 3.5, as well as the models mentioned above
+                it's speed is comparable to the llama2
+                it's amazing at commenting and documenting as well, besides buglessly performing complicated tasks on the first try,
+                even going as far as mixing mutliple languages and linking them together, it places comments in a tasteful and balaced way.
+        """
+        self.model = 'openhermes'  # todo: move model selection to the worker-app
 
         # Create instances of all nested classes
         self.chat = self.Chat(self)

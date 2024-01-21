@@ -211,7 +211,7 @@ class ChatAgent(BaseAgent):
                 # fixme: choice.message may cause issues here, look further into it
                 output_messages = [
                     ChatMessage(role_name=self.role_name, role_type=self.role_type,
-                                meta_dict=dict(), **dict(choice.message))
+                                meta_dict=dict(), content=choice.message.content, role=choice.message.role)
                     for choice in response.choices
                 ]
                 info = self.get_info(
