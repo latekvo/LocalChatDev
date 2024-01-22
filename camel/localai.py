@@ -116,14 +116,13 @@ class LocalAI:
                 # all supplied kwargs: ['messages', 'model', 'temperature', 'top_p', 'n', 'stream', 'stop',
                 # 'max_tokens', 'presence_penalty', 'frequency_penalty', 'logit_bias', 'user']
 
-                request_url = self.parent.parent.base_url + 'api/generate'  # 'generate' can be used for one-turn chat only
+                request_url = self.parent.parent.base_url + 'api/chat'  # 'generate' can be used for one-turn chat only
                 # this broken formatting wraps the json inside the key of our html form,
                 # this is the only accepted formatting by ollama
                 # request_headers = {"Content-Type": "application/x-www-form-urlencoded"}
                 request_data = {
                     'model': self.parent.parent.model,
-                    'prompt': 'hello'
-                    # 'messages': messages,
+                    'messages': messages,
                 }
 
                 response = requests.post(url=request_url, json=request_data, stream=True)
@@ -143,7 +142,7 @@ class LocalAI:
                 # convert response to json:
                 for chunk in response_stream:
                     chunk_json = json.loads(chunk)
-                    chunk_text = chunk_json['response']
+                    chunk_text = chunk_json['message']['content']
                     chunk_done = chunk_json['done']
 
                     if chunk_text == repeat_token:
@@ -165,6 +164,9 @@ class LocalAI:
                         response_list.append(chunk_text)
 
                 response_text = ''.join(response_list)
+
+                print('agent response submitted')
+                print('text:', response_text)
 
                 # token estimations, todo: make use of the llama tokenizer
                 input_cost = prompt_token_count

@@ -203,8 +203,6 @@ class ChatAgent(BaseAgent):
 
         if num_tokens < self.model_token_limit:
             response = self.model_backend.run(messages=openai_messages)
-            print('received response in CAMEL')
-            print('^ response:', response)
             if RUN_LOCALLY:
                 if not isinstance(response, LocalChatCompletion):
                     raise RuntimeError("LocalAI returned unexpected struct")

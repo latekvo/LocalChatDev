@@ -14,6 +14,25 @@ we will have to manage a list of registered ai hosting machines, and adjust the 
 * Additionally, we will have to fix chat history, 
 it is managed differently in ollama-hosted instances than it is in openai-hosted models
 
+### What has to be done:
+* Requests are sent and forwarded asynchronously, with the project being developed by multiple agents at the same time.
+* Requests are forwarded to separate workers instead of running fully locally.
+* A central RAG database is available for all the workers to use.
+
+### What has been done:
+* ChatDev is capable of running offline in a completely local mode.
+
+### More thoughts:
+At first, code will be divided into clearly separate features. 
+We then may use short langchain routines running existing pairs of programmers <-> code reviewers as workers, 
+running on a separate machine, to complete those feature requests. 
+The newly added feature will be finalized by being forwarded to a pair of integration coder <-> code reviewer, 
+who will try and integrate the newly added code with an existing codebase.
+With the whole federalization approach I aim to create a system similar to that of Microsoft Azure,
+where a pool of tasks is being worked on by a pool of workers, first in - first out.
+
+---
+
 ### More details:
 * Requests to the ollama can be made via a simple http json request, here is an example request made via curl:
   ```bash
