@@ -5,15 +5,6 @@ and even after testing on multiple different devices, never threw a single error
 contrary to other local model-hosting software such as h2o-ai which posed multiple
 challenges when we tried to use it.
 
-### Here is a general overview of what has to be changed in this repository in order to get everything up and working:
-* A separate program launching current machine as an AI host must be created.
-* All available host on the network have to declare their presence to the central control machine.
-* All mentions of `openai` in the CAMEL folder have to be replaced with a custom api interaction library.
-* Instead of just making requests to one website as is the case with `openai`'s api,
-we will have to manage a list of registered ai hosting machines, and adjust the url accordingly.
-* Additionally, we will have to fix chat history, 
-it is managed differently in ollama-hosted instances than it is in openai-hosted models
-
 ### What has to be done:
 * Requests are sent and forwarded asynchronously, with the project being developed by multiple agents at the same time.
 * Requests are forwarded to separate workers instead of running fully locally.

@@ -36,6 +36,11 @@ except ImportError:
         "The old API interface is deprecated and will no longer be supported.")
 
 
+# this is done to alter the original code as little as possible
+os.environ["RUN_LOCALLY"] = "1"
+os.environ["DECENTRALIZE"] = "1"
+
+
 def get_config(company):
     """
     return configuration json files for ChatChain
