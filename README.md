@@ -5,6 +5,19 @@ and even after testing on multiple different devices, never threw a single error
 contrary to other local model-hosting software such as h2o-ai which posed multiple
 challenges when we tried to use it.
 
+### How to launch the project?
+This project is currently in a work-in-progress state,
+and it's not intended to be used. <br>
+Currently, to launch LocalChatDev:
+* install the Ollama server, then launch via `ollama serve`
+* set local environment variables `RUN_LOCALLY` and `DECENTRALIZE` to `1`
+* (optional) set local environment variable `OPENAI_API_KEY` to any value
+* launch the `run.py` python script via `python 3.11`
+
+But this process is deprecated, and we're currently working on migrating
+away from Ollama, to an alternative library called text-generation-webui,
+which makes both the installation, and the hosting processes much easier.
+
 ### What has to be done:
 * Requests are sent and forwarded asynchronously, with the project being developed by multiple agents at the same time.
 * Requests are forwarded to separate workers instead of running fully locally.
