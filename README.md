@@ -1,18 +1,25 @@
 # This is a modified fork of the official ChatDev repository
 We are aiming to make ChatDev run locally, or on a private network of devices.
-Hosting is done via ollama as it's cross-platform, single-command installable,
+Localization is done via ollama as it's cross-platform, single-command installable,
 and even after testing on multiple different devices, never threw a single error 
 contrary to other local model-hosting software such as h2o-ai which posed multiple
-challenges when we tried to use it.
+challenges when we tried to use it. <br>
+
+Alternative localization can be performed by running `https://github.com/oobabooga/text-generation-webui` <br>
+with the `--api` parameter enabled, <br>
+and ChatDev with `OPENAI_BASE_URL=http://127.0.0.1:5000/v1` environment variable set.
+This approach will soon become the default launching localization method utilized by this project.
+In case you have problems with using Ollama, this option is worth giving a try.
 
 ### How to launch the project?
 This project is currently in a work-in-progress state,
 and it's not intended to be used. <br>
 Currently, to launch LocalChatDev:
 * install the Ollama server, then launch via `ollama serve`
-* set local environment variables `RUN_LOCALLY` and `DECENTRALIZE` to `1`
 * (optional) set local environment variable `OPENAI_API_KEY` to any value
-* launch the `run.py` python script via `python 3.11`
+* launch the `run.py` with `--local` switch enabled via `python 3.11`
+
+example: `run.py --local --task "Write a fizz buzz implementation"`
 
 But this process is deprecated, and we're currently working on migrating
 away from Ollama, to an alternative library called text-generation-webui,

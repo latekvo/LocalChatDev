@@ -35,12 +35,6 @@ except ImportError:
         "Please update as specified in requirement.txt. \n "
         "The old API interface is deprecated and will no longer be supported.")
 
-
-# this is done to alter the original code as little as possible
-os.environ["RUN_LOCALLY"] = "1"
-os.environ["DECENTRALIZE"] = "1"
-
-
 def get_config(company):
     """
     return configuration json files for ChatChain
@@ -75,6 +69,8 @@ def get_config(company):
 
 
 parser = argparse.ArgumentParser(description='argparse')
+parser.add_argument('--local', type=bool, action='store_true',
+                    help="Switch ChatDev to use local Ollama API instead of OpenAI API")
 parser.add_argument('--config', type=str, default="Default",
                     help="Name of config, which is used to load configuration under CompanyConfig/")
 parser.add_argument('--org', type=str, default="DefaultOrganization",
@@ -87,6 +83,7 @@ parser.add_argument('--model', type=str, default="GPT_3_5_TURBO",
                     help="GPT Model, choose from {'GPT_3_5_TURBO','GPT_4','GPT_4_32K', 'GPT_4_TURBO'}")
 parser.add_argument('--path', type=str, default="",
                     help="Your file directory, ChatDev will build upon your software in the Incremental mode")
+
 args = parser.parse_args()
 
 # Start ChatDev
@@ -103,8 +100,12 @@ args2type = {'GPT_3_5_TURBO': ModelType.GPT_3_5_TURBO,
              }
 if openai_new_api:
     args2type['GPT_3_5_TURBO'] = ModelType.GPT_3_5_TURBO_NEW
+# todo: convert to global variable instead of an env var
+if args.local:
+    os.environ["RUN_LOCALLY"] = "1"
 
-chat_chain = ChatChain(config_path=config_path,
+chat_chain = ChatChain(use_ollama=bool(args.local),
+                       config_path=config_path,
                        config_phase_path=config_phase_path,
                        config_role_path=config_role_path,
                        task_prompt=args.task,
