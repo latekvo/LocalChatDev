@@ -69,7 +69,7 @@ def get_config(company):
 
 
 parser = argparse.ArgumentParser(description='argparse')
-parser.add_argument('--local', type=bool, action='store_true',
+parser.add_argument('--local', action='store_true',
                     help="Switch ChatDev to use local Ollama API instead of OpenAI API. Warning: turn on Ollama first!")
 parser.add_argument('--config', type=str, default="Default",
                     help="Name of config, which is used to load configuration under CompanyConfig/")
@@ -104,7 +104,7 @@ if openai_new_api:
 if args.local:
     os.environ["RUN_LOCALLY"] = "1"
 
-chat_chain = ChatChain(use_ollama=bool(args.local),
+chat_chain = ChatChain(use_ollama=args.local,
                        config_path=config_path,
                        config_phase_path=config_phase_path,
                        config_role_path=config_role_path,

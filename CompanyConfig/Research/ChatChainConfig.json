@@ -83,8 +83,8 @@
     }
   ],
   "recruitments": [
+    "Chief Executive Officer",
     "Research Director",
-    "Research Coordinator",
     "Chief Human Resource Officer",
     "Research Scientist",
     "Critical Analyst",
@@ -101,5 +101,5 @@
   "web_spider": "False",
   "self_improve": "False",
   "incremental_develop": "False",
-  "background_prompt": "ChatDev is a research company powered by multiple intelligent agents, such as Research Director, Chief human resources officer, Research Coordinator, etc, with a multi-agent organizational structure and the mission of 'understanding our strange world through data analysis and visualization'."
+  "background_prompt": "ChatDev is a research company powered by multiple intelligent agents, such as Chief Executive Officer, Chief human resources officer, Research Director, etc, with a multi-agent organizational structure and the mission of 'understanding our strange world through data analysis and visualization'."
 }

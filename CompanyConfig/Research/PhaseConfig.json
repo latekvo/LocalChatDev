@@ -1,7 +1,7 @@
 {
   "DemandAnalysis": {
-    "assistant_role_name": "Research Coordinator",
-    "user_role_name": "Research Director",
+    "assistant_role_name": "Research Director",
+    "user_role_name": "Chief Executive Officer",
     "phase_prompt": [
       "ChatDev has presented its research in the following form before:",
       "Image: can present information in line chart, bar chart, flow chart, cloud chart, Gantt chart, etc.",
@@ -14,7 +14,7 @@
   },
   "LanguageChoose": {
     "assistant_role_name": "Data Visualization Engineer",
-    "user_role_name": "Research Director",
+    "user_role_name": "Chief Executive Officer",
     "phase_prompt": [
       "According to the new user's task and some creative brainstorm ideas listed below: ",
       "Task: \"{task}\".",
@@ -105,7 +105,7 @@
   },
   "CodeComplete": {
     "assistant_role_name": "Data Visualization Engineer",
-    "user_role_name": "Research Coordinator",
+    "user_role_name": "Research Director",
     "phase_prompt": [
       "According to the new user's task and our software designs listed below: ",
       "Task: \"{task}\".",
@@ -209,7 +209,7 @@
   },
   "EnvironmentDoc": {
     "assistant_role_name": "Data Visualization Engineer",
-    "user_role_name": "Research Coordinator",
+    "user_role_name": "Research Director",
     "phase_prompt": [
       "The new user's task and our developed codes are listed: ",
       "Task: \"{task}\".",
@@ -228,8 +228,8 @@
     ]
   },
   "Manual": {
-    "assistant_role_name": "Research Coordinator",
-    "user_role_name": "Research Director",
+    "assistant_role_name": "Research Director",
+    "user_role_name": "Chief Executive Officer",
     "phase_prompt": [
       "The new user's task, our developed codes and required dependencies are listed: ",
       "Task: \"{task}\".",
