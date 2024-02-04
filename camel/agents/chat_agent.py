@@ -38,6 +38,7 @@ try:
 except ImportError:
     openai_new_api = False  # old openai api version
 
+RUN_LOCALLY = False
 if 'RUN_LOCALLY' in os.environ:
     RUN_LOCALLY = os.environ['RUN_LOCALLY']
     openai_new_api = True  # using new_api when running LocalAI (ollama)

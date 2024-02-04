@@ -7,6 +7,7 @@ from camel.localai import LocalAI
 
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 BASE_URL = os.environ.get('BASE_URL')
+RUN_LOCALLY = False
 DECENTRALIZE = False
 
 if 'BASE_URL' in os.environ:
