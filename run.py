@@ -70,7 +70,7 @@ def get_config(company):
 
 parser = argparse.ArgumentParser(description='argparse')
 parser.add_argument('--local', type=bool, action='store_true',
-                    help="Switch ChatDev to use local Ollama API instead of OpenAI API")
+                    help="Switch ChatDev to use local Ollama API instead of OpenAI API. Warning: turn on Ollama first!")
 parser.add_argument('--config', type=str, default="Default",
                     help="Name of config, which is used to load configuration under CompanyConfig/")
 parser.add_argument('--org', type=str, default="DefaultOrganization",

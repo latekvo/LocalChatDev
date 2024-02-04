@@ -25,6 +25,14 @@ But this process is deprecated, and we're currently working on migrating
 away from Ollama, to an alternative library called text-generation-webui,
 which makes both the installation, and the hosting processes much easier.
 
+### Additional feature - Research Mode:
+Due to the convenience not having to purchase openai credits being accessible
+only on this repository, and with further plans of federalizing this feature,
+an alternative functionality has been added.<br>
+You can use this feature by setting this parameter: `--config "Research"`<br>
+Research mode switches this programming pipeline software into a research pipeline software,
+performing web-enabled comprehensive research routine about the provided query.
+
 ### What has to be done:
 * Requests are sent and forwarded asynchronously, with the project being developed by multiple agents at the same time.
 * Requests are forwarded to separate workers instead of running fully locally.

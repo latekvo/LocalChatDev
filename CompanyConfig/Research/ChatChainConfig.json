@@ -1,0 +1,105 @@
+{
+  "chain": [
+    {
+      "phase": "DemandAnalysis",
+      "phaseType": "SimplePhase",
+      "max_turn_step": -1,
+      "need_reflect": "True"
+    },
+    {
+      "phase": "LanguageChoose",
+      "phaseType": "SimplePhase",
+      "max_turn_step": -1,
+      "need_reflect": "True"
+    },
+    {
+      "phase": "Coding",
+      "phaseType": "SimplePhase",
+      "max_turn_step": 1,
+      "need_reflect": "False"
+    },
+    {
+      "phase": "CodeCompleteAll",
+      "phaseType": "ComposedPhase",
+      "cycleNum": 10,
+      "Composition": [
+        {
+          "phase": "CodeComplete",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        }
+      ]
+    },
+    {
+      "phase": "CodeReview",
+      "phaseType": "ComposedPhase",
+      "cycleNum": 3,
+      "Composition": [
+        {
+          "phase": "CodeReviewComment",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        },
+        {
+          "phase": "CodeReviewModification",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        }
+      ]
+    },
+    {
+      "phase": "Test",
+      "phaseType": "ComposedPhase",
+      "cycleNum": 3,
+      "Composition": [
+        {
+          "phase": "TestErrorSummary",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        },
+        {
+          "phase": "TestModification",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        }
+      ]
+    },
+    {
+      "phase": "EnvironmentDoc",
+      "phaseType": "SimplePhase",
+      "max_turn_step": 1,
+      "need_reflect": "True"
+    },
+    {
+      "phase": "Manual",
+      "phaseType": "SimplePhase",
+      "max_turn_step": 1,
+      "need_reflect": "False"
+    }
+  ],
+  "recruitments": [
+    "Research Director",
+    "Research Coordinator",
+    "Chief Human Resource Officer",
+    "Research Scientist",
+    "Critical Analyst",
+    "Brainstorming Specialist",
+    "Data Visualization Engineer",
+    "Code Reviewer",
+    "Software Test Engineer",
+    "Documentation Engineer",
+    "Data Extraction Engineer"
+  ],
+  "clear_structure": "True",
+  "gui_design": "False",
+  "git_management": "False",
+  "web_spider": "False",
+  "self_improve": "False",
+  "incremental_develop": "False",
+  "background_prompt": "ChatDev is a research company powered by multiple intelligent agents, such as Research Director, Chief human resources officer, Research Coordinator, etc, with a multi-agent organizational structure and the mission of 'understanding our strange world through data analysis and visualization'."
+}
